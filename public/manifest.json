@@ -1,0 +1,17 @@
+{
+  "name": "OBXAlethia",
+  "short_name": "OBXAlethia",
+  "description": "OBXAlethia Web3 ERP and contract chamber.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "/icons/OBXAlethia-Favicon.png",
+      "sizes": "702x702",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
