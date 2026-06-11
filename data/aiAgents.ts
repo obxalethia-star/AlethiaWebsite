@@ -1,65 +1,37 @@
 export const aiAgents = [
   {
-    name: "Quant Hedgefund",
+    name: "Capital Strategist",
     description:
-      "Telegram-driven quant hedgefund command center for portfolio requests, alerts, and automated strategy routing.",
-    integrations: ["Telegram Trigger", "Command Parser", "Workflow Router"],
-    focus: "Trading intelligence & portfolio ops"
+      "Drafts capital structures, covenant logic, and board-ready summaries for complex institutional transactions.",
+    integrations: ["Deal Container", "Scenario Model", "Approval Queue"],
+    focus: "Capital structure and covenant design"
   },
   {
-    name: "RetroFuture Master Assistant",
+    name: "Risk Sentinel",
     description:
-      "Primary AI router that dispatches requests to specialist agents for production, customer, supply chain, and analytics workflows.",
-    integrations: ["OpenAI", "Workflow Tooling", "Conversation Memory"],
-    focus: "Multi-agent orchestration"
+      "Maintains a continuous view of KYC, AML, jurisdictional checks, counterparty exposure, and audit evidence.",
+    integrations: ["KYC/AML", "Evidence Vault", "Risk Register"],
+    focus: "Regtech monitoring"
   },
   {
-    name: "Artisan Production Agent",
+    name: "Settlement Orchestrator",
     description:
-      "Coordinates handcrafted production workflows, quality checkpoints, and schedule management for complex builds.",
-    integrations: ["Airtable", "Google Calendar", "Slack", "Google Drive"],
-    focus: "Manufacturing execution"
+      "Maps escrow milestones, multi-sig approvals, release conditions, and cross-chain settlement steps.",
+    integrations: ["Escrow Template", "Multi-Sig", "Event Indexer"],
+    focus: "Escrow and settlement logic"
   },
   {
-    name: "Custom Orders Agent",
+    name: "Insights Compiler",
     description:
-      "Creates bespoke orders, configures designs, and syncs customer specifications across operational systems.",
-    integrations: ["Order API", "Design Config API", "Airtable", "Gmail"],
-    focus: "Order intake & personalization"
+      "Turns deal activity, treasury movement, and module status into investor, board, and operator reporting.",
+    integrations: ["ERP Workspace", "Dashboard", "Board Pack"],
+    focus: "Reporting and operating intelligence"
   },
   {
-    name: "Customer Experience Agent",
+    name: "Boardroom Steward",
     description:
-      "Manages support, updates, and care instructions to deliver premium client communications.",
-    integrations: ["Gmail", "Google Sheets", "Support API"],
-    focus: "Client lifecycle support"
-  },
-  {
-    name: "Order Analytics Agent",
-    description:
-      "Transforms operational data into dashboards, insights, and performance reports across the business.",
-    integrations: ["Analytics API", "Looker", "Google Sheets"],
-    focus: "Reporting & KPIs"
-  },
-  {
-    name: "Sales & Design Agent",
-    description:
-      "Launches new drops, manages campaigns, and schedules consultations for premium clients.",
-    integrations: ["Shopify", "Mailchimp", "Calendly", "Launch API"],
-    focus: "Growth & go-to-market"
-  },
-  {
-    name: "Supply Chain Agent",
-    description:
-      "Sources rare components, tracks inventory, and alerts teams to procurement opportunities.",
-    integrations: ["Tavily Search", "Inventory API", "Airtable", "Slack"],
-    focus: "Sourcing & inventory"
-  },
-  {
-    name: "Workshop Technical Agent",
-    description:
-      "Maintains equipment diagnostics, logs technical docs, and escalates maintenance tickets.",
-    integrations: ["Workshop API", "Jira", "MongoDB", "Slack"],
-    focus: "Technical operations"
+      "Keeps human approval gates explicit by preparing resolutions, vote records, and decision timelines.",
+    integrations: ["Digital Board Room", "Resolution Log", "Signature Flow"],
+    focus: "Human-in-the-loop governance"
   }
 ];

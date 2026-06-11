@@ -61,8 +61,8 @@ const LiquidMaterial = shaderMaterial(
     uv += vec2(sin(uTime + uv.y * 6.0), cos(uTime * 0.7 + uv.x * 6.0)) * 0.015 * uIntensity;
 
     float field = noise(uv * 5.0 + uTime * 0.2 + uScroll * 0.0002);
-    vec3 base = mix(vec3(0.02, 0.04, 0.08), vec3(0.08, 0.16, 0.28), field);
-    vec3 highlight = vec3(0.35, 0.45, 0.9) * falloff;
+    vec3 base = mix(vec3(0.01, 0.01, 0.015), vec3(0.11, 0.03, 0.2), field);
+    vec3 highlight = mix(vec3(0.55, 0.25, 1.0), vec3(0.12, 0.75, 0.48), field) * falloff;
 
     gl_FragColor = vec4(base + highlight, 1.0);
   }

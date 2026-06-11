@@ -1,155 +1,91 @@
 export const enterpriseModules = [
   {
-    title: "AI Advisor",
+    title: "Accounting & Core Ledger",
     description:
-      "Predictive capital structuring insights with scenario planning, board seat recommendations, and risk alerts.",
-    category: "Strategy",
-    primaryActions: ["Run advisory", "Review recommendations", "Export briefing"]
+      "Triple-entry ledger planning, reconciliations, asset matching, and audit evidence connected to each deal container.",
+    category: "Finance",
+    primaryActions: ["Map ledger", "Reconcile flow", "Export evidence"]
   },
   {
-    title: "Chat Panel",
+    title: "Financial Management",
     description:
-      "Secure multi-party collaboration space for deal threads, counsel feedback, and institutional coordination.",
-    category: "Collaboration",
-    primaryActions: ["Start thread", "Invite stakeholders", "Capture decisions"]
+      "Liquidity forecasts, capital allocation logic, spend rules, and treasury approval gates for the MVP workspace.",
+    category: "Finance",
+    primaryActions: ["Forecast liquidity", "Set spend rule", "Approve transfer"]
+  },
+  {
+    title: "Legal & Lifecycle",
+    description:
+      "Contract configuration, signature coordination, decentralized arbitration paths, and secure evidence vaults.",
+    category: "Legal",
+    primaryActions: ["Draft clauses", "Request signature", "Open dispute"]
+  },
+  {
+    title: "Human Resources",
+    description:
+      "Talent workflows, tokenized payroll concepts, permissioning, and approval trails for project teams.",
+    category: "People",
+    primaryActions: ["Create profile", "Assign role", "Review payroll"]
+  },
+  {
+    title: "Investment Management",
+    description:
+      "Portfolio construction, allocation controls, on-chain settlement preparation, and compliance tracking.",
+    category: "Investments",
+    primaryActions: ["Set allocation", "Review risk", "Approve trade"]
+  },
+  {
+    title: "Insurance & Claims",
+    description:
+      "Policy registries, risk logs, coverage checks, and parametric claim workflow concepts for asset-heavy sectors.",
+    category: "Risk",
+    primaryActions: ["Review policy", "Log claim", "Track risk"]
   },
   {
     title: "Regulatory Status",
     description:
-      "Live compliance posture across jurisdictions, with alerts for KYC/AML and cross-border filings.",
-    category: "Compliance",
-    primaryActions: ["View status", "Resolve alert", "Download report"]
+      "KYC/AML status, Travel Rule readiness, FSCA evidence trails, and cross-jurisdiction monitoring surfaces.",
+    category: "Regtech",
+    primaryActions: ["View status", "Resolve alert", "Export report"]
   },
   {
     title: "Automated Reporting",
     description:
-      "Generate investor-ready reports, regulatory filings, and board updates on a scheduled cadence.",
-    category: "Compliance",
-    primaryActions: ["Schedule report", "View history", "Share output"]
-  },
-  {
-    title: "Audit Preparation",
-    description:
-      "Centralized checklist for evidence collection, attestations, and audit readiness workflows.",
-    category: "Compliance",
-    primaryActions: ["Start audit", "Assign tasks", "Track evidence"]
-  },
-  {
-    title: "Pending Negotiations",
-    description:
-      "Pipeline of counterparties, unresolved terms, and SLA-driven negotiation timers.",
-    category: "Operations",
-    primaryActions: ["Open negotiation", "Assign owner", "Update terms"]
-  },
-  {
-    title: "Portfolio Chart",
-    description:
-      "Performance overview of asset allocations, exposure limits, and portfolio health metrics.",
-    category: "Analytics",
-    primaryActions: ["View chart", "Filter assets", "Export metrics"]
-  },
-  {
-    title: "Analytics Panel",
-    description:
-      "Deep analytics for transaction flow, throughput, and operational KPIs across business units.",
-    category: "Analytics",
-    primaryActions: ["View KPIs", "Compare cohorts", "Set alerts"]
-  },
-  {
-    title: "Transaction Details",
-    description:
-      "Granular audit trail for smart-contract executions, approvals, and settlement stages.",
-    category: "Operations",
-    primaryActions: ["View timeline", "Export logs", "Flag anomaly"]
-  },
-  {
-    title: "Decision Support Panel",
-    description:
-      "Scenario-based decisioning with weighted criteria, approvals, and executive vote tracking.",
-    category: "Strategy",
-    primaryActions: ["Run scenario", "Score options", "Approve decision"]
+      "Scheduled board packs, investor updates, regulatory summaries, and operator dashboards from container data.",
+    category: "Reporting",
+    primaryActions: ["Schedule pack", "View history", "Share update"]
   },
   {
     title: "Document Manager",
     description:
-      "Secure repository for contracts, diligence, and governance artifacts with role-based access.",
+      "Contracts, diligence, governance artifacts, access policies, and evidence exports in one secure workspace.",
     category: "Operations",
     primaryActions: ["Upload file", "Manage access", "Request signature"]
   },
   {
-    title: "Calendar & Milestones",
+    title: "Decision Support",
     description:
-      "Unified calendar for compliance deadlines, investor reporting, and deployment milestones.",
-    category: "Operations",
-    primaryActions: ["View calendar", "Add milestone", "Sync reminders"]
+      "Scenario scoring, board votes, approval queues, and explainable recommendations for human decision-makers.",
+    category: "Strategy",
+    primaryActions: ["Run scenario", "Score options", "Approve decision"]
   },
   {
     title: "Asset Management Gateway",
     description:
-      "Web3-enabled asset oversight for tokenized infrastructure, custody controls, and AI-assisted rebalancing.",
+      "Tokenized asset oversight, custody controls, and future rebalancing surfaces for institutional operators.",
     category: "Assets",
     primaryActions: ["Monitor assets", "Rebalance strategy", "Approve custody"]
   },
   {
     title: "Smart Contract Deployment Workspace",
     description:
-      "Deployment cockpit for multi-sig parameters, gas priorities, and compliance gating.",
+      "Sandbox deployment cockpit for multi-sig parameters, gas planning, and compliance gating before production.",
     category: "Contracts",
     primaryActions: ["Configure deploy", "Validate compliance", "Launch contract"]
-  },
-  {
-    title: "HR Command Center",
-    description:
-      "Hiring pipeline, compensation modeling, onboarding checklists, and workforce analytics.",
-    category: "HR",
-    primaryActions: ["Open requisition", "Review compensation", "Approve onboarding"]
-  },
-  {
-    title: "Insurance & Risk",
-    description:
-      "Policy inventory, claims workflows, and coverage gap monitoring with audit trails.",
-    category: "Risk",
-    primaryActions: ["Review policies", "Log claim", "Run coverage scan"]
-  },
-  {
-    title: "Marketing Intelligence",
-    description:
-      "Campaign orchestration, attribution dashboards, and budget governance with KPI triggers.",
-    category: "Marketing",
-    primaryActions: ["Launch campaign", "Track attribution", "Approve spend"]
-  },
-  {
-    title: "Accounting Hub",
-    description:
-      "Ledger reconciliation, tax readiness, and multi-entity reporting with compliance reviews.",
-    category: "Finance",
-    primaryActions: ["Reconcile ledgers", "Close period", "Export filings"]
-  },
-  {
-    title: "Financial Management",
-    description:
-      "Liquidity forecasting, treasury policy enforcement, and variance monitoring.",
-    category: "Finance",
-    primaryActions: ["Review forecast", "Approve transfer", "Set guardrails"]
-  },
-  {
-    title: "Legal & Arbitration",
-    description:
-      "Contract lifecycle tracking, arbitration playbooks, and regulatory evidence vaults.",
-    category: "Legal",
-    primaryActions: ["Review clauses", "Open dispute", "Upload evidence"]
-  },
-  {
-    title: "Investment Management",
-    description:
-      "Portfolio construction, risk limits, and on-chain execution controls for allocations.",
-    category: "Investments",
-    primaryActions: ["Set allocation", "Review risk", "Approve trade"]
   }
 ];
 
 export const enterpriseIntegrations = [
-  "n8n Orchestration",
   "Native LLM Core",
   "Boardroom Governance",
   "KYC/AML Automation",

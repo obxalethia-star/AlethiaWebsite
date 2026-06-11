@@ -30,18 +30,65 @@ import { LiquidScene } from './components/scene/LiquidScene';
 import { MagneticCard } from './components/ui/MagneticCard';
 import { ParallaxLayer } from './components/ui/ParallaxLayer';
 import { AnimatedHeading } from './components/ui/AnimatedHeading';
+import { SiteHeader } from './components/SiteHeader';
 import { generateDealSimulation } from './services/geminiService';
 import { aiAgents } from './data/aiAgents';
-import { contractTemplates, activeContracts, deploymentHighlights } from './data/contractManager';
+import { activeContracts, contractTemplates, deploymentHighlights } from './data/contractManager';
 import { enterpriseIntegrations, enterpriseModules } from './data/enterpriseModules';
-import { infrastructureFeatures, industryCoverage } from './data/infrastructureFeatures';
+import { industryCoverage, infrastructureFeatures } from './data/infrastructureFeatures';
 import { Industry, SimulationResult } from './types';
 import { activateAgentForIndustry, AgentProfile } from './services/agentRouter';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const foundationCards = [
+  {
+    title: 'Digital Contract Chamber',
+    description: 'Permissioned deal rooms for documents, approvals, signatures, escrow logic, and audit history.',
+    icon: <Layers3 className="h-5 w-5 text-violet-300" />
+  },
+  {
+    title: 'Decentralized Settlement',
+    description: 'Milestone escrows, revenue waterfalls, and future cross-chain settlement routes for institutional assets.',
+    icon: <LineChart className="h-5 w-5 text-emerald-300" />
+  },
+  {
+    title: 'Agentic ERP Layer',
+    description: 'A five-agent operating mesh that prepares workflows while human approvals stay in control.',
+    icon: <Bot className="h-5 w-5 text-violet-300" />
+  }
+];
+
+const trustSignals = [
+  { label: 'Pre-seed MVP', icon: <Sparkles className="h-4 w-4 text-violet-300" /> },
+  { label: 'Human approval gates', icon: <ShieldCheck className="h-4 w-4 text-emerald-300" /> },
+  { label: 'MEASA + Sub-Saharan focus', icon: <Landmark className="h-4 w-4 text-zinc-300" /> }
+];
+
+const heroStats = [
+  { label: 'Stage', value: 'Pre-seed MVP' },
+  { label: 'Testnet demo target', value: '$12.4B simulated flow' },
+  { label: 'Institution targets', value: '150 mapped prospects' },
+  { label: 'License target', value: 'FSP + CASP 2027' }
+];
+
+const chamberLayers = [
+  { label: 'Deal containers', icon: <Layers3 className="h-4 w-4 text-violet-300" /> },
+  { label: 'Chain-attested logs', icon: <Lock className="h-4 w-4 text-emerald-300" /> },
+  { label: 'Treasury controls', icon: <Wallet className="h-4 w-4 text-zinc-300" /> }
+];
+
+const mvpFocus = [
+  'Legal + contract layer',
+  'Finance + settlement',
+  'AI agent mesh',
+  'ERP intelligence modules',
+  'Regtech evidence trails',
+  'Hardware wallet concepts'
+];
+
 function App() {
-  const heroRef = useRef<HTMLDivElement | null>(null);
+  const pageRef = useRef<HTMLDivElement | null>(null);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry>(Industry.FINANCE);
   const [dealDescription, setDealDescription] = useState('');
   const [isSimulating, setIsSimulating] = useState(false);
@@ -52,32 +99,32 @@ function App() {
   const hasApiKey = Boolean(process.env.NEXT_PUBLIC_OPENAI_API_KEY);
 
   const industries = [
-    { id: Industry.ART, icon: <Diamond className="w-4 h-4" />, label: 'Art World' },
-    { id: Industry.FINANCE, icon: <Landmark className="w-4 h-4" />, label: 'DeFi & PE' },
-    { id: Industry.REAL_ESTATE, icon: <Gavel className="w-4 h-4" />, label: 'Real Estate' },
-    { id: Industry.MINING, icon: <Pickaxe className="w-4 h-4" />, label: 'Mining' },
-    { id: Industry.EDUCATION, icon: <GraduationCap className="w-4 h-4" />, label: 'Education' },
-    { id: Industry.AGRICULTURE, icon: <Wheat className="w-4 h-4" />, label: 'Agriculture' }
+    { id: Industry.ART, icon: <Diamond className="h-4 w-4" />, label: 'Art & Culture' },
+    { id: Industry.FINANCE, icon: <Landmark className="h-4 w-4" />, label: 'Capital Markets' },
+    { id: Industry.REAL_ESTATE, icon: <Gavel className="h-4 w-4" />, label: 'Real Estate' },
+    { id: Industry.MINING, icon: <Pickaxe className="h-4 w-4" />, label: 'Mining' },
+    { id: Industry.EDUCATION, icon: <GraduationCap className="h-4 w-4" />, label: 'Education' },
+    { id: Industry.AGRICULTURE, icon: <Wheat className="h-4 w-4" />, label: 'Agriculture' }
   ];
 
   const quickPrompts = [
     {
       industry: Industry.MINING,
-      label: 'Lithium LBO',
+      label: 'Lithium Mine',
       prompt:
-        'Initiating an LBO for a mid-cap lithium mine in Western Australia. Need a $400M raise utilizing 30% DeFi bonds and 70% institutional equity. Ensure cross-border asset transfer compliance.'
+        'Model a lithium mine financing with institutional equity, milestone escrow, environmental evidence, and cross-border settlement requirements.'
     },
     {
       industry: Industry.REAL_ESTATE,
       label: 'Tokenized Tower',
       prompt:
-        'Tokenize a $180M commercial tower in Dubai with REIT-backed debt, aiming for a 24-month stabilization and ESG reporting for global LPs.'
+        'Tokenize a commercial tower with lease cash-flow reporting, title evidence, investor permissions, and staged settlement.'
     },
     {
       industry: Industry.ART,
       label: 'Auction Escrow',
       prompt:
-        'Structure a $60M escrow for a rotating collection of contemporary art with provenance verification, auction settlement, and AML safeguards.'
+        'Structure an art auction escrow with provenance checks, AML review, collector permissions, and revenue split logic.'
     }
   ];
 
@@ -93,22 +140,22 @@ function App() {
     try {
       const result = await generateDealSimulation(dealDescription, selectedIndustry);
       const elapsed = Date.now() - start;
-      const minDelay = 1500;
+      const minDelay = 1200;
 
       if (elapsed < minDelay) {
         await new Promise((resolve) => setTimeout(resolve, minDelay - elapsed));
       }
       setSimulationResult(result);
-    } catch (e) {
-      console.error(e);
-      setSimulationError('Simulation failed to run. Please retry or verify your API key.');
+    } catch (error) {
+      console.error(error);
+      setSimulationError('The sandbox planner could not complete this run. Try a shorter transaction brief.');
     } finally {
       setIsSimulating(false);
     }
   };
 
   useLayoutEffect(() => {
-    if (!heroRef.current) return;
+    if (!pageRef.current) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.hero-fly',
@@ -127,301 +174,196 @@ function App() {
           }
         });
       });
-    }, heroRef);
+    }, pageRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
     <InteractionProvider>
-      <div className="min-h-screen bg-[#05060b] text-slate-100 font-sans">
+      <div className="min-h-screen bg-black text-zinc-100 font-sans">
         <LiquidScene />
-        <div className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(69,84,255,0.35),_transparent_60%)]" />
-          <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#0b0f22] to-transparent" />
-          <div className="relative" ref={heroRef}>
-            <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-              <div className="flex items-center gap-3">
-                <img
-                  src="/icons/OBXAlethia-Favicon.png"
-                  alt="OBXAlethia"
-                  className="h-10 w-10 rounded-xl object-cover"
-                />
-                <div>
-                  <p className="text-sm font-semibold text-white">OBX ALETHIA</p>
-                  <p className="text-[10px] uppercase tracking-[0.4em] text-slate-400">WEB3 ERP | AGENTIC SOLUTIONS</p>
-                </div>
-              </div>
-              <nav className="hidden items-center gap-6 text-xs uppercase tracking-[0.2em] text-slate-400 md:flex">
-                <Link href="/solutions" className="hover:text-white transition">
-                  Solutions
+        <SiteHeader />
+        <div ref={pageRef} className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,12,0.75),rgba(0,0,0,0.92)_34%,rgba(0,0,0,1))]" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
+
+          <section className="relative mx-auto grid max-w-7xl gap-12 px-5 pb-18 pt-12 md:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:pb-24 lg:pt-20">
+            <div>
+              <p className="hero-fly mb-5 inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-400/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-violet-100">
+                <Sparkles className="h-4 w-4" />
+                OBXAlethia pre-seed MVP
+              </p>
+              <AnimatedHeading className="hero-fly max-w-4xl text-5xl font-semibold leading-[0.95] text-white md:text-7xl">
+                A digital contract chamber for institutional capital.
+              </AnimatedHeading>
+              <p className="hero-fly mt-6 max-w-2xl text-base leading-8 text-zinc-300 md:text-lg">
+                OBXAlethia is building a Web3 agentic ERP where institutions can coordinate complex deal flow,
+                contract execution, escrow, treasury controls, and compliance evidence from one permissioned workspace.
+              </p>
+              <div className="hero-fly mt-8 flex flex-wrap gap-4">
+                <Link
+                  href="/solutions"
+                  className="group inline-flex items-center gap-2 rounded-full bg-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 transition hover:bg-violet-400"
+                >
+                  Explore the chamber <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
                 </Link>
-                <Link href="/web3" className="hover:text-white transition">
-                  Web3
+                <Link
+                  href="/web3"
+                  className="rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-zinc-200 transition hover:border-emerald-300/40 hover:bg-emerald-300/10 hover:text-white"
+                >
+                  View Web3 stack
                 </Link>
-                <Link href="/agents" className="hover:text-white transition">
-                  Agents
-                </Link>
-                <Link href="/erp" className="hover:text-white transition">
-                  ERP
-                </Link>
-              </nav>
-              <Link
-                href="/register"
-                className="rounded-full border border-slate-700 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200 transition hover:border-slate-500 hover:text-white"
-              >
-                Request Access
-              </Link>
-            </header>
-
-            <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-6 md:grid-cols-[1.1fr_0.9fr]">
-              <div>
-                <p className="hero-fly mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-indigo-200">
-                  <Sparkles className="h-4 w-4" />
-                  Secure AI + Web3 ERP
-                </p>
-                <AnimatedHeading className="hero-fly text-4xl font-semibold text-white md:text-5xl">
-                  A digital contract chamber for institutional capital, agentic workflows, and decentralized borrowing.
-                </AnimatedHeading>
-                <p className="hero-fly mt-6 text-base text-slate-300">
-                  Orchestrate multi-institution programs with on-chain governance, AI decisioning, and automated
-                  compliance. Align stakeholders, issue programmable contracts, and unlock capital across verticals.
-                </p>
-                <div className="hero-fly mt-8 flex flex-wrap gap-4">
-                  <button className="flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30">
-                    Launch ERP <ArrowRight className="h-4 w-4" />
-                  </button>
-                  <button className="rounded-full border border-slate-700 px-6 py-3 text-sm font-semibold text-slate-200">
-                    View smart contracts
-                  </button>
-                </div>
-                <div className="hero-fly mt-10 flex flex-wrap gap-6 text-xs uppercase tracking-[0.2em] text-slate-500">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-indigo-400" /> SOC2-ready controls
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Wallet className="h-4 w-4 text-cyan-400" /> Treasury-grade custody
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <BrainCircuit className="h-4 w-4 text-fuchsia-400" /> Agentic orchestration
-                  </div>
-                </div>
               </div>
-
-              <ParallaxLayer depth={16} className="relative">
-                <div className="rounded-3xl border border-slate-800/70 bg-slate-900/50 p-6 backdrop-blur">
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Live AI Core</p>
-                    <span
-                      className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${
-                        hasApiKey
-                          ? 'border-cyan-500/40 bg-cyan-500/10 text-cyan-200'
-                          : 'border-amber-500/40 bg-amber-500/10 text-amber-200'
-                      }`}
-                    >
-                      {hasApiKey ? 'Connected' : 'Local Mode'}
-                    </span>
-                  </div>
-                  <div className="mt-6 space-y-4">
-                    {[
-                      { label: 'Protocol status', value: 'Stable · 24/7 uptime' },
-                      { label: 'Active institutions', value: '148 entities' },
-                      { label: 'Capital in motion', value: '$12.4B' }
-                    ].map((item) => (
-                      <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
-                        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">{item.label}</p>
-                        <p className="mt-2 text-lg font-semibold text-white">{item.value}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 rounded-2xl border border-slate-800 bg-gradient-to-br from-indigo-500/20 via-transparent to-cyan-500/20 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Agent OS</p>
-                    <p className="mt-2 text-sm text-slate-200">
-                      Coordinate AI agents, n8n workflows, and smart contract hooks from a unified command layer.
-                    </p>
-                  </div>
-                </div>
-              </ParallaxLayer>
-            </section>
-          </div>
-        </div>
-
-        <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-16 md:grid-cols-3" data-parallax="30">
-          {[
-            {
-              title: 'Digital Contract Chamber',
-              description: 'Register institutions, projects, and smart-contract governance on-chain.',
-              icon: <Layers3 className="h-5 w-5 text-indigo-300" />
-            },
-            {
-              title: 'Decentralized Settlement',
-              description: 'Programmable escrow, real-time distributions, and automated compliance.',
-              icon: <LineChart className="h-5 w-5 text-cyan-300" />
-            },
-            {
-              title: 'Agentic ERP Layer',
-              description: 'AI + workflow orchestration with secure data boundaries.',
-              icon: <Bot className="h-5 w-5 text-fuchsia-300" />
-            }
-          ].map((item) => (
-            <MagneticCard key={item.title} className="group">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900">
-                  {item.icon}
-                </span>
-                <p className="text-sm font-semibold text-white">{item.title}</p>
-              </div>
-              <p className="mt-4 text-sm text-slate-300">{item.description}</p>
-            </MagneticCard>
-          ))}
-        </section>
-
-        <section className="mx-auto max-w-6xl px-6 pb-20">
-          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-            <MagneticCard className="group">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Capital intelligence</p>
-              <div className="mt-4 grid gap-4 md:grid-cols-2">
-                <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Capital utilization</p>
-                  <div className="mt-3 h-36 overflow-hidden">
-                    <CapitalDeploymentChart />
-                  </div>
-                </div>
-                <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/70 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Sector allocation</p>
-                  <div className="mt-3 h-36 overflow-hidden">
-                    <SectorAllocationChart />
-                  </div>
-                </div>
-              </div>
-              <div className="mt-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Access</p>
-                <p className="mt-2 text-sm text-slate-200">
-                  Launch private workspaces, invite institutions, and map permissions to on-chain roles.
-                </p>
-              </div>
-            </MagneticCard>
-
-            <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Secure Infrastructure</p>
-              <div className="mt-4 grid gap-4">
-                {[
-                  { label: 'Custody & Escrow', icon: <Lock className="h-4 w-4 text-indigo-300" /> },
-                  { label: 'Tokenized Workflows', icon: <Boxes className="h-4 w-4 text-cyan-300" /> },
-                  { label: 'Zero-Trust Routing', icon: <Cpu className="h-4 w-4 text-fuchsia-300" /> }
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-3 text-sm text-slate-200"
-                  >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-950">
-                      {item.icon}
-                    </span>
-                    {item.label}
+              <div className="hero-fly mt-10 flex flex-wrap gap-5 text-xs uppercase tracking-[0.2em] text-zinc-500">
+                {trustSignals.map((signal) => (
+                  <div key={signal.label} className="flex items-center gap-2">
+                    {signal.icon}
+                    {signal.label}
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </section>
 
-        <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-20 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-3xl border border-slate-800 bg-gradient-to-br from-[#131624] via-[#0b0d1a] to-[#0f1329] p-6">
-            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-slate-400">
-              <Sparkles className="h-4 w-4 text-indigo-300" /> Deal simulation workspace
+            <ParallaxLayer depth={16} className="relative">
+              <div className="rounded-3xl border border-white/10 bg-zinc-950/70 p-5 shadow-2xl shadow-violet-950/30 backdrop-blur-xl md:p-6">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">MVP build map</p>
+                  <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-200">
+                    In build
+                  </span>
+                </div>
+                <div className="mt-6 grid gap-3">
+                  {heroStats.map((item) => (
+                    <div key={item.label} className="rounded-2xl border border-white/10 bg-black/50 p-4">
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">{item.label}</p>
+                      <p className="mt-2 text-lg font-semibold text-white">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 rounded-2xl border border-violet-400/20 bg-gradient-to-br from-violet-500/20 via-black/30 to-emerald-400/10 p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Core thesis</p>
+                  <p className="mt-2 text-sm leading-6 text-zinc-200">
+                    Bring legal, finance, settlement, and ERP operations into one secure chamber before scaling into
+                    regulated commercial deployment.
+                  </p>
+                </div>
+              </div>
+            </ParallaxLayer>
+          </section>
+
+          <section className="relative mx-auto grid max-w-7xl gap-5 px-5 pb-16 md:grid-cols-3 md:px-8" data-parallax="24">
+            {foundationCards.map((item) => (
+              <MagneticCard key={item.title} className="group border-white/10 bg-zinc-950/65">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    {item.icon}
+                  </span>
+                  <p className="text-sm font-semibold text-white">{item.title}</p>
+                </div>
+                <p className="mt-4 text-sm leading-6 text-zinc-400">{item.description}</p>
+              </MagneticCard>
+            ))}
+          </section>
+
+          <section className="relative mx-auto max-w-7xl px-5 pb-20 md:px-8">
+            <div className="grid gap-5 lg:grid-cols-[1.12fr_0.88fr]">
+              <MagneticCard className="group border-white/10 bg-zinc-950/70">
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Capital intelligence</p>
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/55 p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Runway model</p>
+                    <div className="mt-3 h-36 overflow-hidden">
+                      <CapitalDeploymentChart />
+                    </div>
+                  </div>
+                  <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/55 p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Sector blueprints</p>
+                    <div className="mt-3 h-36 overflow-hidden">
+                      <SectorAllocationChart />
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 rounded-2xl border border-violet-400/20 bg-gradient-to-r from-violet-500/10 to-emerald-400/10 p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">MVP access model</p>
+                  <p className="mt-2 text-sm leading-6 text-zinc-200">
+                    Launch private workspaces, invite institutional stakeholders, and map permissions to on-chain roles
+                    before any production capital movement.
+                  </p>
+                </div>
+              </MagneticCard>
+
+              <div className="rounded-3xl border border-white/10 bg-black/65 p-6">
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Secure infrastructure</p>
+                <div className="mt-5 grid gap-3">
+                  {chamberLayers.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-zinc-950/75 p-3 text-sm text-zinc-200"
+                    >
+                      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.04]">
+                        {item.icon}
+                      </span>
+                      {item.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <h3 className="mt-4 text-2xl font-semibold text-white">Anticipatory engine</h3>
-            <p className="mt-2 text-sm text-slate-400">
-              Feed complex transactions to the AI core and generate compliant smart contract plans in seconds.
-            </p>
-            <div className="mt-6 grid gap-4 lg:grid-cols-2">
-              {industries.map((ind) => (
+          </section>
+
+          <section className="relative mx-auto grid max-w-7xl gap-6 px-5 pb-20 lg:grid-cols-[1.1fr_0.9fr] md:px-8">
+            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-950/95 via-black to-violet-950/25 p-6">
+              <div className="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-zinc-500">
+                <Sparkles className="h-4 w-4 text-violet-300" /> Deal simulation workspace
+              </div>
+              <h2 className="mt-4 text-3xl font-semibold text-white">Anticipatory planning engine</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
+                Feed a transaction brief into the sandbox and generate a structured plan for deal containers, escrow
+                conditions, compliance evidence, and agent handoffs.
+              </p>
+              <div className="mt-6 grid gap-3 lg:grid-cols-2">
+                {industries.map((industry) => (
+                  <button
+                    key={industry.id}
+                    onClick={() => setSelectedIndustry(industry.id)}
+                    className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition ${
+                      selectedIndustry === industry.id
+                        ? 'border-violet-400/60 bg-violet-400/10 text-white'
+                        : 'border-white/10 bg-black/55 text-zinc-300 hover:border-emerald-300/40'
+                    }`}
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.04]">
+                      {industry.icon}
+                    </span>
+                    {industry.label}
+                  </button>
+                ))}
+              </div>
+              <textarea
+                value={dealDescription}
+                onChange={(event) => setDealDescription(event.target.value)}
+                placeholder="Describe the deal, capital structure, stakeholders, compliance checks, and settlement conditions..."
+                className="mt-6 h-32 w-full resize-none rounded-2xl border border-white/10 bg-black/60 p-4 text-sm text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:border-violet-400/70"
+              />
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+                <p className="text-xs leading-5 text-zinc-600">
+                  Prototype output for planning only. Human review and legal counsel remain required.
+                </p>
                 <button
-                  key={ind.id}
-                  onClick={() => setSelectedIndustry(ind.id)}
-                  className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition ${
-                    selectedIndustry === ind.id
-                      ? 'border-indigo-500/60 bg-indigo-500/10 text-white'
-                      : 'border-slate-800 bg-slate-950/60 text-slate-300 hover:border-slate-600'
+                  onClick={handleSimulation}
+                  disabled={isSimulating || !dealDescription}
+                  className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${
+                    isSimulating || !dealDescription
+                      ? 'bg-zinc-900 text-zinc-600'
+                      : 'bg-violet-500 text-white shadow-lg shadow-violet-500/25 hover:bg-violet-400'
                   }`}
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900">
-                    {ind.icon}
-                  </span>
-                  {ind.label}
+                  {isSimulating ? 'Planning' : 'Run sandbox plan'}
+                  <ArrowRight className="h-4 w-4" />
                 </button>
-              ))}
-            </div>
-            <textarea
-              value={dealDescription}
-              onChange={(e) => setDealDescription(e.target.value)}
-              placeholder="Describe the infrastructure deal, capital structure, and compliance requirements..."
-              className="mt-6 h-32 w-full rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-100 placeholder:text-slate-600 focus:border-indigo-500 focus:outline-none"
-            />
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
-              <p className="text-xs text-slate-500">
-                *OpenAI is used as the primary engine. Gemini can be added as fallback.
-              </p>
-              <button
-                onClick={handleSimulation}
-                disabled={isSimulating || !dealDescription}
-                className={`flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${
-                  isSimulating || !dealDescription
-                    ? 'bg-slate-800 text-slate-500'
-                    : 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/30'
-                }`}
-              >
-                {isSimulating ? 'Processing' : 'Run simulation'}
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
-            {simulationError && (
-              <div className="mt-4 rounded-2xl border border-red-500/40 bg-red-500/10 p-3 text-xs text-red-200">
-                {simulationError}
               </div>
-            )}
-            {simulationResult && (
-              <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-200">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Simulation Output</p>
-                <p className="mt-3 text-sm text-slate-200">{simulationResult.strategicInsight}</p>
-                <div className="mt-4 space-y-2 text-xs text-slate-400">
-                  {simulationResult.complianceChecklist.map((step, index) => (
-                    <div key={`${step}-${index}`} className="flex items-start gap-2">
-                      <CheckCircle2 className="mt-0.5 h-3 w-3 text-cyan-400" />
-                      <span>
-                        {index + 1}. {step}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {activeAgent && (
-              <div className="mt-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-4 text-sm text-slate-200">
-                <div className="flex items-center justify-between">
-                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Agent Online</p>
-                  <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-200">
-                    {activeAgent.backgroundStatus}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm font-semibold text-white">{activeAgent.name}</p>
-                <p className="mt-1 text-xs text-slate-400">{activeAgent.role}</p>
-                <p className="mt-3 text-xs text-slate-300">{activeAgent.focus}</p>
-                <div className="mt-3 grid gap-2 text-[11px] text-slate-400">
-                  {activeAgent.runbook.map((step) => (
-                    <div key={step} className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                      {step}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            <div className="mt-6 border-t border-slate-800 pt-4">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                Quick Launch Prompts
-              </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="mt-5 flex flex-wrap gap-2">
                 {quickPrompts.map((item) => (
                   <button
                     key={item.label}
@@ -429,227 +371,153 @@ function App() {
                       setSelectedIndustry(item.industry);
                       setDealDescription(item.prompt);
                     }}
-                    className="text-xs px-3 py-2 rounded-full border border-slate-800 bg-slate-900/60 text-slate-300 hover:border-indigo-500/50 hover:text-white transition"
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-zinc-400 transition hover:border-violet-400/40 hover:text-white"
                   >
                     {item.label}
                   </button>
                 ))}
               </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Deployment telemetry</p>
-              <h3 className="mt-2 text-2xl font-semibold text-white">Execution workspace</h3>
-              <div className="mt-6 space-y-4">
-                {deploymentHighlights.map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-slate-500">{item.label}</p>
-                    <p className="mt-2 text-sm font-semibold text-white">{item.value}</p>
-                    <p className="mt-2 text-xs text-slate-400">{item.description}</p>
-                  </div>
-                ))}
-                <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-                  <h4 className="text-sm font-bold text-white mb-2">Founder&apos;s Note</h4>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    &quot;This engine leverages my pattern recognition algorithms honed through years of PE and DeFi
-                    experience. It doesn&apos;t just process; it anticipates scarcity and regulatory bottlenecks before
-                    they occur.&quot;
-                  </p>
+              {simulationError && (
+                <div className="mt-4 rounded-2xl border border-red-500/40 bg-red-500/10 p-3 text-xs text-red-200">
+                  {simulationError}
                 </div>
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-bold text-white">Engine Status</h4>
-                <span
-                  className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full ${
-                    hasApiKey
-                      ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
-                      : 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
-                  }`}
-                >
-                  {hasApiKey ? 'Live AI Enabled' : 'Local Mode'}
-                </span>
-              </div>
-              <p className="mt-3 text-xs text-slate-400 leading-relaxed">
-                {hasApiKey
-                  ? 'OpenAI is connected for live reasoning and structured outputs.'
-                  : 'Add NEXT_PUBLIC_OPENAI_API_KEY to .env.local to enable live AI generation.'}
-              </p>
-            </div>
-
-            <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Active contracts</p>
-              <div className="mt-4 space-y-4">
-                {activeContracts.map((contract) => (
-                  <div key={contract.name} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-white">{contract.name}</p>
-                      <span className="rounded-full border border-slate-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-slate-400">
-                        {contract.status}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500">{contract.type}</p>
-                    <p className="mt-2 text-xs text-slate-400">Parties: {contract.parties.join(', ')}</p>
-                    <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-800">
-                      <div
-                        className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500"
-                        style={{ width: `${contract.progress}%` }}
-                      />
-                    </div>
-                    <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
-                      <span>Deployed {contract.deployedAt}</span>
-                      {contract.blockchainUrl ? (
-                        <a
-                          href={contract.blockchainUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-cyan-300 hover:text-cyan-200"
-                        >
-                          {contract.txHash.slice(0, 10)}…
-                        </a>
-                      ) : (
-                        <span>{contract.txHash.slice(0, 10)}…</span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">AI agents</p>
-            <h3 className="mt-2 text-2xl font-semibold text-white">Operational agent mesh</h3>
-            <p className="mt-3 text-sm text-slate-400">
-              Implemented workflows combine n8n automation, specialized agent roles, and enterprise integrations.
-            </p>
-            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {aiAgents.map((agent) => (
-                <div key={agent.name} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-                  <p className="text-sm font-semibold text-white">{agent.name}</p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-500">{agent.focus}</p>
-                  <p className="mt-3 text-sm text-slate-400">{agent.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-400">
-                    {agent.integrations.map((tool) => (
-                      <span key={tool} className="rounded-full border border-slate-800 px-2 py-1">
-                        {tool}
-                      </span>
+              )}
+              {simulationResult && (
+                <div className="mt-6 rounded-2xl border border-white/10 bg-black/60 p-4 text-sm text-zinc-200">
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Sandbox output</p>
+                  <p className="mt-3 leading-6 text-zinc-200">{simulationResult.strategicInsight}</p>
+                  <div className="mt-4 grid gap-2 text-xs text-zinc-400">
+                    {simulationResult.complianceChecklist.map((step, index) => (
+                      <div key={`${step}-${index}`} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-300" />
+                        <span>
+                          {index + 1}. {step}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Enterprise modules</p>
-                <h3 className="mt-2 text-2xl font-semibold text-white">ERP intelligence workspace</h3>
-              </div>
-              <span className="rounded-full border border-slate-700 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-slate-400">
-                Integrated
-              </span>
-            </div>
-            <p className="mt-3 text-sm text-slate-400">
-              Reintroduced advisory, compliance, analytics, and negotiation tooling as modular surfaces aligned to the
-              Next.js experience.
-            </p>
-            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {enterpriseModules.map((module) => (
-                <div key={module.title} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-white">{module.title}</p>
-                    <span className="rounded-full border border-slate-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-slate-400">
-                      {module.category}
+              )}
+              {activeAgent && (
+                <div className="mt-6 rounded-2xl border border-white/10 bg-zinc-950/70 p-4 text-sm text-zinc-200">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Agent selected</p>
+                    <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-emerald-200">
+                      Sandbox
                     </span>
                   </div>
-                  <p className="mt-3 text-sm text-slate-400">{module.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-slate-400">
-                    {module.primaryActions.map((action) => (
-                      <span key={action} className="rounded-full border border-slate-800 px-2 py-1">
-                        {action}
-                      </span>
+                  <p className="mt-2 text-sm font-semibold text-white">{activeAgent.name}</p>
+                  <p className="mt-1 text-xs text-zinc-400">{activeAgent.role}</p>
+                  <p className="mt-3 text-xs leading-5 text-zinc-300">{activeAgent.focus}</p>
+                  <div className="mt-3 grid gap-2 text-[11px] text-zinc-500">
+                    {activeAgent.runbook.map((step) => (
+                      <div key={step} className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                        {step}
+                      </div>
                     ))}
                   </div>
                 </div>
-              ))}
+              )}
             </div>
-            <div className="mt-8 flex flex-wrap gap-2 text-[11px] text-slate-400">
-              {enterpriseIntegrations.map((integration) => (
-                <span key={integration} className="rounded-full border border-slate-800 px-3 py-1">
-                  {integration}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-8">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Institutional infrastructure</p>
-                <h3 className="mt-2 text-2xl font-semibold text-white">Institutional-grade capabilities</h3>
-              </div>
-              <span className="rounded-full border border-slate-700 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-slate-400">
-                Next.js core
-              </span>
-            </div>
-            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {infrastructureFeatures.map((feature) => (
-                <div key={feature.title} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
-                  <p className="text-sm font-semibold text-white">{feature.title}</p>
-                  <p className="mt-3 text-sm text-slate-400">{feature.description}</p>
+            <div className="space-y-6">
+              <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">MVP telemetry</p>
+                <h2 className="mt-2 text-2xl font-semibold text-white">Execution roadmap</h2>
+                <div className="mt-6 space-y-4">
+                  {deploymentHighlights.map((item) => (
+                    <div key={item.label} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
+                      <p className="mt-2 text-sm font-semibold text-white">{item.value}</p>
+                      <p className="mt-2 text-xs leading-5 text-zinc-400">{item.description}</p>
+                    </div>
+                  ))}
+                  <div className="rounded-2xl border border-violet-400/20 bg-violet-400/10 p-4">
+                    <p className="text-sm font-semibold text-white">Funding ask</p>
+                    <p className="mt-2 text-xs leading-5 text-zinc-300">
+                      The immediate pre-seed ask is the first-month allocation for MVP infrastructure, technical
+                      standards guidance, and revenue model support.
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-slate-300">
-              {industryCoverage.map((industry) => (
-                <span
-                  key={industry}
-                  className="rounded-full border border-slate-800 bg-slate-900/60 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-slate-400"
-                >
-                  {industry}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
+              </div>
 
-        <section className="mx-auto max-w-6xl px-6 pb-24">
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Smart contract manager</p>
-              <h3 className="mt-2 text-2xl font-semibold text-white">Deployment-ready templates</h3>
-              <div className="mt-6 grid gap-4 md:grid-cols-2">
-                {contractTemplates.map((template) => (
-                  <div key={template.name} className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold text-white">{template.name}</p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">{template.category}</p>
+              <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-white">Engine status</h3>
+                  <span
+                    className={`rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${
+                      hasApiKey
+                        ? 'border-emerald-300/30 bg-emerald-300/10 text-emerald-200'
+                        : 'border-violet-300/30 bg-violet-300/10 text-violet-200'
+                    }`}
+                  >
+                    {hasApiKey ? 'LLM connected' : 'Local sandbox'}
+                  </span>
+                </div>
+                <p className="mt-3 text-xs leading-5 text-zinc-400">
+                  {hasApiKey
+                    ? 'Live structured outputs are enabled for sandbox planning.'
+                    : 'The local planner is available without external AI credentials.'}
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Sandbox contracts</p>
+                <div className="mt-4 space-y-4">
+                  {activeContracts.map((contract) => (
+                    <div key={contract.name} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="text-sm font-semibold text-white">{contract.name}</p>
+                        <span className="rounded-full border border-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-400">
+                          {contract.status}
+                        </span>
                       </div>
-                      <span className="rounded-full border border-slate-700 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-slate-400">
-                        {template.complexity}
-                      </span>
+                      <p className="mt-2 text-xs uppercase tracking-[0.2em] text-zinc-500">{contract.type}</p>
+                      <p className="mt-2 text-xs text-zinc-400">Parties: {contract.parties.join(', ')}</p>
+                      <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-zinc-900">
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-violet-500 to-emerald-300"
+                          style={{ width: `${contract.progress}%` }}
+                        />
+                      </div>
+                      <div className="mt-3 flex items-center justify-between text-xs text-zinc-600">
+                        <span>{contract.deployedAt}</span>
+                        <span>{contract.txHash}</span>
+                      </div>
                     </div>
-                    <div className="mt-4 flex flex-wrap gap-2 text-xs text-slate-300">
-                      <span className="rounded-full border border-slate-800 px-2 py-1">Cost: {template.deployCost}</span>
-                      <span className="rounded-full border border-slate-800 px-2 py-1">Avg: {template.avgTime}</span>
-                    </div>
-                    <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-slate-400">
-                      {template.compliance.map((req) => (
-                        <span key={req} className="rounded-full border border-slate-800 px-2 py-1">
-                          {req}
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="relative mx-auto max-w-7xl px-5 pb-20 md:px-8">
+            <div className="rounded-3xl border border-white/10 bg-black/70 p-6 md:p-8">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">AI agents</p>
+                  <h2 className="mt-2 text-3xl font-semibold text-white">Operational agent mesh</h2>
+                </div>
+                <Link href="/agents" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-200 hover:text-white">
+                  See agent page <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-400">
+                The MVP agent layer is assistive by design: agents prepare, monitor, and route work, while institutions
+                keep final authority through explicit approvals.
+              </p>
+              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+                {aiAgents.map((agent) => (
+                  <div key={agent.name} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-5">
+                    <p className="text-sm font-semibold text-white">{agent.name}</p>
+                    <p className="mt-2 text-xs uppercase tracking-[0.2em] text-zinc-500">{agent.focus}</p>
+                    <p className="mt-3 text-sm leading-6 text-zinc-400">{agent.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-zinc-500">
+                      {agent.integrations.map((tool) => (
+                        <span key={tool} className="rounded-full border border-white/10 px-2 py-1">
+                          {tool}
                         </span>
                       ))}
                     </div>
@@ -657,60 +525,166 @@ function App() {
                 ))}
               </div>
             </div>
+          </section>
 
-            <div className="space-y-6">
-              <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Custody + governance</p>
-                <h3 className="mt-2 text-2xl font-semibold text-white">Unified operational cockpit</h3>
-                <div className="mt-6 space-y-4 text-sm text-slate-300">
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Treasury & Transparency</p>
-                    <p className="mt-2 text-sm text-slate-300">
-                      Establish always-on reporting with chain-aware telemetry, analytics, and audit readiness.
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Agents + Workflows</p>
-                    <p className="mt-2 text-sm text-slate-300">
-                      Coordinate agents, permissions, and data rooms for complex, multi-party engagement.
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Compliant Settlement</p>
-                    <p className="mt-2 text-sm text-slate-300">
-                      Enforce on-chain approvals, escrow-based settlement, and institutional controls.
-                    </p>
-                  </div>
+          <section className="relative mx-auto max-w-7xl px-5 pb-20 md:px-8">
+            <div className="rounded-3xl border border-white/10 bg-black/70 p-6 md:p-8">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Enterprise modules</p>
+                  <h2 className="mt-2 text-3xl font-semibold text-white">ERP intelligence workspace</h2>
                 </div>
+                <span className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-emerald-200">
+                  Planned modules
+                </span>
               </div>
-              <div className="rounded-3xl border border-slate-800 bg-slate-950/70 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Integrated across verticals</p>
-                <div className="mt-6 grid gap-3 text-xs text-slate-300">
-                  {[
-                    'Tokenized debt',
-                    'Cross-border equity',
-                    'Compliant collateralization',
-                    'Programmable escrow',
-                    'Agentic diligence',
-                    'Institutional KYC/AML'
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 p-3"
-                    >
-                      <span className="h-2 w-2 rounded-full bg-cyan-400" />
-                      {item}
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-zinc-400">
+                ERP is the familiar operating surface around the chamber: accounting, legal, finance, investment, risk,
+                and reporting tools connected to the same permissioned transaction record.
+              </p>
+              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {enterpriseModules.map((module) => (
+                  <div key={module.title} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-sm font-semibold text-white">{module.title}</p>
+                      <span className="rounded-full border border-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                        {module.category}
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm leading-6 text-zinc-400">{module.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-zinc-500">
+                      {module.primaryActions.map((action) => (
+                        <span key={action} className="rounded-full border border-white/10 px-2 py-1">
+                          {action}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-wrap gap-2 text-[11px] text-zinc-500">
+                {enterpriseIntegrations.map((integration) => (
+                  <span key={integration} className="rounded-full border border-white/10 px-3 py-1">
+                    {integration}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="relative mx-auto max-w-7xl px-5 pb-20 md:px-8">
+            <div className="rounded-3xl border border-white/10 bg-black/70 p-6 md:p-8">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Institutional infrastructure</p>
+                  <h2 className="mt-2 text-3xl font-semibold text-white">Capabilities being built into the MVP</h2>
+                </div>
+                <span className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+                  Pre-seed core
+                </span>
+              </div>
+              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {infrastructureFeatures.map((feature) => (
+                  <div key={feature.title} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-5">
+                    <p className="text-sm font-semibold text-white">{feature.title}</p>
+                    <p className="mt-3 text-sm leading-6 text-zinc-400">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-zinc-300">
+                {industryCoverage.map((industry) => (
+                  <span
+                    key={industry}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-zinc-500"
+                  >
+                    {industry}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="relative mx-auto max-w-7xl px-5 pb-24 md:px-8">
+            <div className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+              <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
+                <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Smart contract manager</p>
+                <h2 className="mt-2 text-3xl font-semibold text-white">Deployment-ready templates</h2>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                  {contractTemplates.map((template) => (
+                    <div key={template.name} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-semibold text-white">{template.name}</p>
+                          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-zinc-500">{template.category}</p>
+                        </div>
+                        <span className="rounded-full border border-white/10 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+                          {template.complexity}
+                        </span>
+                      </div>
+                      <div className="mt-4 flex flex-wrap gap-2 text-xs text-zinc-300">
+                        <span className="rounded-full border border-white/10 px-2 py-1">Mode: {template.deployCost}</span>
+                        <span className="rounded-full border border-white/10 px-2 py-1">Avg: {template.avgTime}</span>
+                      </div>
+                      <div className="mt-3 flex flex-wrap gap-2 text-[11px] text-zinc-500">
+                        {template.compliance.map((requirement) => (
+                          <span key={requirement} className="rounded-full border border-white/10 px-2 py-1">
+                            {requirement}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
 
-        <footer className="border-t border-slate-900/60 py-12 text-center text-xs text-slate-500">
-          OBXAlethia · Secure, adaptive infrastructure for institutional on-chain capital.
-        </footer>
+              <div className="space-y-6">
+                <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Custody + governance</p>
+                  <h2 className="mt-2 text-3xl font-semibold text-white">Unified operational cockpit</h2>
+                  <div className="mt-6 space-y-4 text-sm text-zinc-300">
+                    {[
+                      {
+                        label: 'Treasury & transparency',
+                        detail: 'Stablecoin treasury controls, spend policies, and chain-aware reporting.'
+                      },
+                      {
+                        label: 'Agents + workflows',
+                        detail: 'Assistive agents prepare work across legal, finance, risk, and reporting modules.'
+                      },
+                      {
+                        label: 'Compliant settlement',
+                        detail: 'On-chain approvals, escrow releases, arbitration paths, and institutional controls.'
+                      }
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4">
+                        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
+                        <p className="mt-2 text-sm leading-6 text-zinc-300">{item.detail}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
+                  <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Integrated across verticals</p>
+                  <div className="mt-6 grid gap-3 text-xs text-zinc-300">
+                    {mvpFocus.map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-2 rounded-xl border border-white/10 bg-zinc-950/70 p-3"
+                      >
+                        <span className="h-2 w-2 rounded-full bg-emerald-300" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <footer className="relative border-t border-white/10 py-12 text-center text-xs text-zinc-600">
+            OBXAlethia - pre-seed Web3 agentic ERP and smart contract chamber.
+          </footer>
+        </div>
       </div>
     </InteractionProvider>
   );

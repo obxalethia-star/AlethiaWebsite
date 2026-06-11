@@ -43,7 +43,7 @@ export function MagneticCard({ className, children }: MagneticCardProps) {
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            'radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(99,102,241,0.25), transparent 60%)'
+            'radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(139,92,246,0.28), rgba(52,211,153,0.08) 28%, transparent 62%)'
         }}
       />
       <div className="relative z-10">{children}</div>

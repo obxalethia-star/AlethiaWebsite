@@ -1,33 +1,33 @@
 export const infrastructureFeatures = [
   {
-    title: "AI Capital Structuring",
+    title: "Deal Container Model",
     description:
-      "Anticipatory smart contracts that predict capital needs, regulatory requirements, and optimal deal structures before you ask."
+      "Permissioned digital chambers for documents, roles, approvals, milestones, signatures, and audit history."
   },
   {
-    title: "Multi-Party Orchestration",
+    title: "Chain-Attested Logs",
     description:
-      "Seamlessly coordinate PE firms, investment banks, hedge funds, and institutional partners in real-time collaboration."
+      "Immutable evidence trails for board decisions, contract changes, release events, and compliance checkpoints."
   },
   {
-    title: "Regulatory Compliance",
+    title: "Human Approval Gates",
     description:
-      "Automated compliance monitoring across jurisdictions with built-in risk mitigation and anticipatory regulatory frameworks."
+      "AI agents assist with preparation and monitoring while executive authority remains explicit and manual."
   },
   {
-    title: "Instant Settlement",
+    title: "Milestone Escrow",
     description:
-      "Blockchain-powered instant settlements with reduced friction in cross-border payments and remittances."
+      "Programmable release criteria for capital flows, supplier payments, arbitration outcomes, and revenue waterfalls."
   },
   {
-    title: "Quantitative Analytics",
+    title: "ERP Familiarity",
     description:
-      "CFA-grade portfolio analytics, risk metrics, and valuation models integrated directly into every transaction."
+      "Operational patterns familiar to teams that already use systems such as Sage, DocuSign, and board portals."
   },
   {
-    title: "Enterprise Security",
+    title: "Regtech Data Flywheel",
     description:
-      "Bank-grade encryption, multi-sig wallets, and institutional custody solutions for peace of mind."
+      "Structured transaction activity creates a foundation for future compliance monitoring and predictive risk models."
   }
 ];
 

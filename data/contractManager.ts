@@ -1,101 +1,98 @@
 export const contractTemplates = [
   {
-    name: "Series A Investment Agreement",
-    category: "Private Equity",
+    name: "Deal Container Setup",
+    category: "Core Chamber",
     complexity: "High",
-    deployCost: "0.0245 ETH",
+    deployCost: "Sandbox",
     avgTime: "3-5 min",
-    compliance: ["SEC Reg D", "Accredited Investor", "KYC/AML"]
+    compliance: ["Permissions", "Counterparty Roles", "Evidence Vault"]
   },
   {
-    name: "Commercial Property Lease",
-    category: "Real Estate",
+    name: "AI Contract Draft",
+    category: "Legal Layer",
     complexity: "Medium",
-    deployCost: "0.0189 ETH",
+    deployCost: "Sandbox",
     avgTime: "2-3 min",
-    compliance: ["Property Law", "Zoning", "Insurance"]
+    compliance: ["Clause Library", "Attorney Review", "Audit Trail"]
   },
   {
-    name: "Agricultural Futures Contract",
-    category: "Agriculture",
+    name: "Milestone Escrow",
+    category: "Settlement",
     complexity: "Medium",
-    deployCost: "0.0198 ETH",
+    deployCost: "Sandbox",
     avgTime: "2-4 min",
-    compliance: ["CFTC", "Commodity Exchange", "USDA"]
+    compliance: ["Release Rules", "Dispute Path", "Multi-Sig"]
   },
   {
-    name: "Mining Rights Partnership",
-    category: "Mining & Energy",
+    name: "Revenue Waterfall",
+    category: "Finance",
     complexity: "High",
-    deployCost: "0.0267 ETH",
+    deployCost: "Sandbox",
     avgTime: "4-6 min",
-    compliance: ["EPA", "Mining Law", "Environmental"]
+    compliance: ["Royalty Logic", "Stakeholder Ledger", "Reports"]
   },
   {
-    name: "Tokenized Artwork Sale",
-    category: "Art & Collectibles",
+    name: "Board Resolution Log",
+    category: "Governance",
     complexity: "Low",
-    deployCost: "0.0156 ETH",
+    deployCost: "Sandbox",
     avgTime: "1-2 min",
-    compliance: ["Copyright", "Authenticity", "Tax"]
+    compliance: ["Vote Record", "Signatures", "Chain Attestation"]
   },
   {
-    name: "Education Funding Agreement",
-    category: "Education",
+    name: "Tokenized Asset Record",
+    category: "Web3 Registry",
     complexity: "Medium",
-    deployCost: "0.0178 ETH",
+    deployCost: "Sandbox",
     avgTime: "2-3 min",
-    compliance: ["Student Loan", "Privacy", "Accreditation"]
+    compliance: ["Ownership", "Lifecycle Events", "KYC/AML"]
   }
 ];
 
 export const activeContracts = [
   {
-    name: "TechCorp Series A Investment",
-    type: "Private Equity",
-    status: "Active",
-    parties: ["Goldman Sachs Ventures", "TechCorp Inc.", "Wilson & Partners LLP"],
+    name: "Mining Rights Finance Demo",
+    type: "Mining & Energy",
+    status: "Prototype",
+    parties: ["Sponsor", "Operator", "Counsel"],
     progress: 75,
-    deployedAt: "2025-12-03",
-    txHash: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-    blockchainUrl: "https://etherscan.io/tx/0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
+    deployedAt: "MVP track",
+    txHash: "0xSANDBOX742d35"
   },
   {
-    name: "Manhattan Office Lease 2025",
-    type: "Real Estate",
-    status: "Pending",
-    parties: ["Blackstone Real Estate", "WeWork Global", "Cushman & Wakefield"],
-    progress: 45,
-    deployedAt: "2025-12-02",
-    txHash: "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
-    blockchainUrl: "https://etherscan.io/tx/0x8ba1f109551bD432803012645Ac136ddd64DBA72"
-  },
-  {
-    name: "Wheat Futures Q1 2026",
+    name: "Agricultural Futures Demo",
     type: "Agriculture",
-    status: "Active",
-    parties: ["Cargill Trading", "Midwest Farmers Co-op", "Chicago Mercantile Exchange"],
+    status: "Designing",
+    parties: ["Producer", "Buyer", "Escrow Admin"],
+    progress: 45,
+    deployedAt: "Testnet next",
+    txHash: "0xSANDBOX8ba1f1"
+  },
+  {
+    name: "Tokenized Artwork Escrow",
+    type: "Art & Culture",
+    status: "Prototype",
+    parties: ["Collector", "Gallery", "Custodian"],
     progress: 90,
-    deployedAt: "2025-11-28",
-    txHash: "0x1c8aff950685c2ed4bc3174f3472287b56d9517b",
-    blockchainUrl: "https://etherscan.io/tx/0x1c8aff950685c2ed4bc3174f3472287b56d9517b"
+    deployedAt: "Demo-ready",
+    txHash: "0xSANDBOX1c8aff"
   }
 ];
 
 export const deploymentHighlights = [
   {
-    label: "Multi-sig requirement",
-    value: "2-of-3",
-    description: "Dual signature controls with escrow gating"
+    label: "Month 1",
+    value: "MVP initialization",
+    description: "Token mapping, sandbox setup, and UI prototype hardening"
   },
   {
-    label: "Gas priority",
-    value: "Medium",
-    description: "Target confirmation in ~3 minutes"
+    label: "Months 2-3",
+    value: "Core chamber",
+    description: "Smart contract chamber, basic multi-sig links, and escrow flows"
   },
   {
-    label: "Compliance gate",
-    value: "Active",
-    description: "Automated checks before execution"
+    label: "Months 4-9",
+    value: "Version 1 build",
+    description: "Commercial modules, audits, node infrastructure, and compliance frameworks"
   }
 ];
