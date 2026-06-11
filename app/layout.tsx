@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 export const metadata: Metadata = {
   title: 'Alethia | Web3 ERP',
   description: 'OBXAlethia executive dashboard and anticipatory contract engine.',
-  applicationName: 'OBXAlethia',
+  applicationName: 'OBX ALETHIA',
   manifest: '/manifest.json',
   icons: {
     icon: [{ url: '/icons/OBXAlethia-Favicon.png', type: 'image/png' }]
