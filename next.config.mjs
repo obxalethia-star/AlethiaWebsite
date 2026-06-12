@@ -6,6 +6,7 @@ const basePath = isGithubPagesBuild ? `/${repositoryName}` : '';
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
+  outputFileTracingRoot: process.cwd(),
   trailingSlash: true,
   basePath,
   assetPrefix: basePath ? `${basePath}/` : undefined,

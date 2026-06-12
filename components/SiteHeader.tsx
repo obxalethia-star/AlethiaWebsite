@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -91,7 +92,7 @@ function Dropdown({
 }: {
   label: string;
   href: string;
-  items: { title: string; detail: string; href: string; icon: JSX.Element }[];
+  items: { title: string; detail: string; href: string; icon: ReactNode }[];
 }) {
   return (
     <div className="group relative">
@@ -139,10 +140,10 @@ export function SiteHeader() {
           <img
             src={`${basePath}/icons/OBXAlethia-Favicon.png`}
             alt="OBXAlethia"
-            className="h-9 w-9 rounded-xl object-cover shadow-lg shadow-violet-500/20"
+            className="h-9 w-9"
           />
           <span className="min-w-0">
-            <span className="block text-sm font-semibold text-white">OBXAlethia</span>
+            <span className="block text-sm font-semibold text-white">OBXALETHIA</span>
             <span className="hidden text-[10px] uppercase tracking-[0.32em] text-zinc-500 sm:block">
               Web3 agentic ERP
             </span>

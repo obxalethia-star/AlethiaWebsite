@@ -1,61 +1,64 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Building2, Handshake, TrendingUp } from 'lucide-react';
+import { Building2, CheckCircle2, Handshake, TrendingUp } from 'lucide-react';
 import { EarlyAccessForm } from '../../components/EarlyAccessForm';
-import { MailingListForm } from '../../components/MailingListForm';
+import { SiteHeader } from '../../components/SiteHeader';
 
 export const metadata: Metadata = {
-  title: 'Request Access | OBX Alethia',
+  title: 'Request Briefing | OBXAlethia',
   description:
-    'Request access to OBX Alethia, join the release mailing list, and learn about the company for customers, partners, and potential investors.'
+    'Request an OBXAlethia briefing for the pre-seed MVP, smart contract chamber, Web3 ERP roadmap, customer pilots, partnerships, and investor conversations.'
 };
 
 const benefits = [
-  'Private workspace provisioning with role-based permissions',
-  'Priority onboarding for institutional deal containers',
-  'Early access to agentic ERP modules and smart contract templates'
+  'MVP walkthrough of the smart contract chamber and ERP workspace',
+  'Discussion of pilot use cases across mining, agriculture, real estate, art, and private markets',
+  'Investor context for runway, technical milestones, and regulated deployment path'
 ];
 
-const companyAudiences = [
+const audiences = [
   {
     title: 'Customers',
-    icon: <Building2 className="h-5 w-5 text-cyan-300" />,
-    detail: 'Learn how OBX Alethia will support enterprise workflows, regulated approvals, document trails, and launch readiness.'
+    icon: <Building2 className="h-5 w-5 text-emerald-300" />,
+    detail: 'Explore whether a permissioned deal container can support a real institutional transaction or pilot workflow.'
   },
   {
     title: 'Partners',
-    icon: <Handshake className="h-5 w-5 text-indigo-300" />,
-    detail: 'Explore future collaboration across legal, custody, compliance, automation, integration, and data infrastructure.'
+    icon: <Handshake className="h-5 w-5 text-violet-300" />,
+    detail: 'Discuss future collaboration across legal, custody, compliance, integration, audit, and data infrastructure.'
   },
   {
     title: 'Investors',
     icon: <TrendingUp className="h-5 w-5 text-emerald-300" />,
-    detail: 'Track the platform thesis, ERP release path, market focus, and company milestones as the product moves toward launch.'
+    detail: 'Review the pre-seed thesis, first-month ask, MVP scope, licensing path, and early commercial roadmap.'
   }
 ];
 
 export default function RegisterPage() {
   return (
-    <main className="min-h-screen bg-[#05060b] text-slate-100">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <Link href="/" className="text-xs uppercase tracking-[0.3em] text-slate-400 hover:text-white">
+    <main className="min-h-screen bg-black text-zinc-100">
+      <SiteHeader />
+      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+        <Link href="/" className="text-xs uppercase tracking-[0.24em] text-zinc-500 transition hover:text-white">
           Back to overview
         </Link>
-        <div className="mt-8 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="mt-8 grid gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-indigo-300">Early access</p>
-            <h1 className="mt-4 text-4xl font-semibold text-white md:text-5xl">Register for platform access.</h1>
-            <p className="mt-4 text-sm leading-6 text-slate-300">
-              Join the early access program to learn about OBX Alethia, follow the ERP release, and request access to
-              institutional workspaces before general availability.
+            <p className="text-xs uppercase tracking-[0.3em] text-violet-300">Request briefing</p>
+            <h1 className="mt-4 text-5xl font-semibold leading-tight text-white md:text-6xl">
+              Talk to OBXAlethia about the pre-seed MVP.
+            </h1>
+            <p className="mt-6 text-base leading-8 text-zinc-300">
+              We invite you to open the table for serious customer, partner, and investor conversations. OBXAlethia is at the beginning:
+              the focus is MVP validation, technical standards, pilot fit, and the path toward regulated deployment.
             </p>
 
-            <div className="mt-8 rounded-3xl border border-slate-800 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-400">What you get</p>
-              <div className="mt-4 space-y-3 text-sm text-slate-300">
+            <div className="mt-8 rounded-3xl border border-white/10 bg-zinc-950/70 p-6">
+              <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">What the briefing covers</p>
+              <div className="mt-4 grid gap-3 text-sm text-zinc-300">
                 {benefits.map((benefit) => (
                   <div key={benefit} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-cyan-400" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
                     {benefit}
                   </div>
                 ))}
@@ -66,32 +69,26 @@ export default function RegisterPage() {
           <EarlyAccessForm />
         </div>
 
-        <section className="mt-14 rounded-3xl border border-slate-800 bg-slate-950/70 p-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Find out more</p>
-          <h2 className="mt-3 text-3xl font-semibold text-white">Company information for customers and investors.</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
-            OBX Alethia is building secure ERP and Web3 infrastructure for organizations that need governed workflows,
-            role-based approvals, audit trails, and operating intelligence across complex transactions.
+        <section className="mt-14 rounded-3xl border border-white/10 bg-black/70 p-6 md:p-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Who should reach out</p>
+          <h2 className="mt-3 text-3xl font-semibold text-white">Company information for customers, partners, and investors.</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-400">
+            The current website is constructed as a decompisiton of the pre-seed MVP, so the invitation is not a mass-market sign-up.
+            It is a route into focused discovery, pilot conversations, and investment diligence.
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {companyAudiences.map((audience) => (
-              <article key={audience.title} className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-950">{audience.icon}</span>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {audiences.map((audience) => (
+              <article key={audience.title} className="rounded-3xl border border-white/10 bg-zinc-950/70 p-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                  {audience.icon}
+                </span>
                 <h3 className="mt-4 text-lg font-semibold text-white">{audience.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-300">{audience.detail}</p>
+                <p className="mt-3 text-sm leading-6 text-zinc-400">{audience.detail}</p>
               </article>
             ))}
           </div>
         </section>
-
-        <section className="mt-12">
-          <div className="mb-5">
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Mailing list</p>
-            <h2 className="mt-3 text-3xl font-semibold text-white">Get release, ERP, and company updates.</h2>
-          </div>
-          <MailingListForm />
-        </section>
-      </div>
+      </section>
     </main>
   );
 }

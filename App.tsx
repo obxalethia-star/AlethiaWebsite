@@ -215,14 +215,6 @@ function App() {
                   View Web3 stack
                 </Link>
               </div>
-              <div className="hero-fly mt-10 flex flex-wrap gap-5 text-xs uppercase tracking-[0.2em] text-zinc-500">
-                {trustSignals.map((signal) => (
-                  <div key={signal.label} className="flex items-center gap-2">
-                    {signal.icon}
-                    {signal.label}
-                  </div>
-                ))}
-              </div>
             </div>
 
             <ParallaxLayer depth={16} className="relative">
@@ -327,11 +319,10 @@ function App() {
                   <button
                     key={industry.id}
                     onClick={() => setSelectedIndustry(industry.id)}
-                    className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition ${
-                      selectedIndustry === industry.id
+                    className={`flex items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition ${selectedIndustry === industry.id
                         ? 'border-violet-400/60 bg-violet-400/10 text-white'
                         : 'border-white/10 bg-black/55 text-zinc-300 hover:border-emerald-300/40'
-                    }`}
+                      }`}
                   >
                     <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/[0.04]">
                       {industry.icon}
@@ -353,11 +344,10 @@ function App() {
                 <button
                   onClick={handleSimulation}
                   disabled={isSimulating || !dealDescription}
-                  className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${
-                    isSimulating || !dealDescription
+                  className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition ${isSimulating || !dealDescription
                       ? 'bg-zinc-900 text-zinc-600'
                       : 'bg-violet-500 text-white shadow-lg shadow-violet-500/25 hover:bg-violet-400'
-                  }`}
+                    }`}
                 >
                   {isSimulating ? 'Planning' : 'Run sandbox plan'}
                   <ArrowRight className="h-4 w-4" />
@@ -447,11 +437,10 @@ function App() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold text-white">Engine status</h3>
                   <span
-                    className={`rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${
-                      hasApiKey
+                    className={`rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${hasApiKey
                         ? 'border-emerald-300/30 bg-emerald-300/10 text-emerald-200'
                         : 'border-violet-300/30 bg-violet-300/10 text-violet-200'
-                    }`}
+                      }`}
                   >
                     {hasApiKey ? 'LLM connected' : 'Local sandbox'}
                   </span>

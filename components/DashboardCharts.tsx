@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 
 const data = [
@@ -19,9 +21,19 @@ const sectorData = [
 const COLORS = ['#8b5cf6', '#34d399', '#d4d4d8', '#a855f7'];
 
 export const CapitalDeploymentChart: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="h-full w-full min-h-0 rounded-xl bg-zinc-950" />;
+  }
+
   return (
     <div className="h-full w-full min-h-0">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         <AreaChart data={data} margin={{ top: 4, right: 4, bottom: 0, left: -12 }}>
           <defs>
             <linearGradient id="colorCapital" x1="0" y1="0" x2="0" y2="1">
@@ -43,9 +55,19 @@ export const CapitalDeploymentChart: React.FC = () => {
 };
 
 export const SectorAllocationChart: React.FC = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="h-full w-full min-h-0 rounded-xl bg-zinc-950" />;
+  }
+
   return (
     <div className="h-full w-full min-h-0">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         <BarChart data={sectorData} margin={{ top: 4, right: 4, bottom: 0, left: -12 }}>
           <CartesianGrid strokeDasharray="4 6" stroke="#27272a" />
           <XAxis dataKey="name" stroke="#a1a1aa" tick={{ fontSize: 10 }} />
