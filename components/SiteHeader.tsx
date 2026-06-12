@@ -138,7 +138,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <img
-            src={`${basePath}/icons/OBXAlethia-Favicon.png`}
+            src="/icons/OBXAlethia-Favicon.png"
             alt="OBXAlethia"
             className="h-9 w-9"
           />

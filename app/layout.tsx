@@ -1,15 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export const metadata: Metadata = {
   title: 'Alethia | Web3 ERP',
   description: 'OBX Alethia Web3 ERP platform for governed workflows, AI agents, and institutional operations.',
   applicationName: 'OBX ALETHIA',
-  manifest: `${basePath}/manifest.json`,
+  manifest: `/manifest.json`,
   icons: {
-    icon: [{ url: `${basePath}/icons/OBXAlethia-Favicon.png`, type: 'image/png' }]
+    icon: [{ url: '/icons/OBXAlethia-Favicon.png', type: 'image/png' }]
   }
 };
 
