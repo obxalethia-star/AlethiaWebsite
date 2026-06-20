@@ -31,6 +31,7 @@ import { MagneticCard } from './components/ui/MagneticCard';
 import { ParallaxLayer } from './components/ui/ParallaxLayer';
 import { AnimatedHeading } from './components/ui/AnimatedHeading';
 import { SiteHeader } from './components/SiteHeader';
+import { SlotStats } from './components/SlotStats';
 import { generateDealSimulation } from './services/geminiService';
 import { aiAgents } from './data/aiAgents';
 import { activeContracts, contractTemplates, deploymentHighlights } from './data/contractManager';
@@ -225,14 +226,7 @@ function App() {
                     In build
                   </span>
                 </div>
-                <div className="mt-6 grid gap-3">
-                  {heroStats.map((item) => (
-                    <div key={item.label} className="rounded-2xl border border-white/10 bg-black/50 p-4">
-                      <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">{item.label}</p>
-                      <p className="mt-2 text-lg font-semibold text-white">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
+                <SlotStats />
                 <div className="mt-5 rounded-2xl border border-violet-400/20 bg-gradient-to-br from-violet-500/20 via-black/30 to-emerald-400/10 p-4">
                   <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Core thesis</p>
                   <p className="mt-2 text-sm leading-6 text-zinc-200">
@@ -412,46 +406,6 @@ function App() {
             </div>
 
             <div className="space-y-6">
-              <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">MVP telemetry</p>
-                <h2 className="mt-2 text-2xl font-semibold text-white">Execution roadmap</h2>
-                <div className="mt-6 space-y-4">
-                  {deploymentHighlights.map((item) => (
-                    <div key={item.label} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4">
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">{item.label}</p>
-                      <p className="mt-2 text-sm font-semibold text-white">{item.value}</p>
-                      <p className="mt-2 text-xs leading-5 text-zinc-400">{item.description}</p>
-                    </div>
-                  ))}
-                  <div className="rounded-2xl border border-violet-400/20 bg-violet-400/10 p-4">
-                    <p className="text-sm font-semibold text-white">Funding ask</p>
-                    <p className="mt-2 text-xs leading-5 text-zinc-300">
-                      The immediate pre-seed ask is the first-month allocation for MVP infrastructure, technical
-                      standards guidance, and revenue model support.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-white">Engine status</h3>
-                  <span
-                    className={`rounded-full border px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] ${hasApiKey
-                        ? 'border-emerald-300/30 bg-emerald-300/10 text-emerald-200'
-                        : 'border-violet-300/30 bg-violet-300/10 text-violet-200'
-                      }`}
-                  >
-                    {hasApiKey ? 'LLM connected' : 'Local sandbox'}
-                  </span>
-                </div>
-                <p className="mt-3 text-xs leading-5 text-zinc-400">
-                  {hasApiKey
-                    ? 'Live structured outputs are enabled for sandbox planning.'
-                    : 'The local planner is available without external AI credentials.'}
-                </p>
-              </div>
-
               <div className="rounded-3xl border border-white/10 bg-black/70 p-6">
                 <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Sandbox contracts</p>
                 <div className="mt-4 space-y-4">

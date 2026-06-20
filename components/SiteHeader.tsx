@@ -95,21 +95,24 @@ function Dropdown({
   items: { title: string; detail: string; href: string; icon: ReactNode }[];
 }) {
   return (
-    <div className="group relative">
+    <div className="group relative" style={{ touchAction: 'manipulation' }}>
       <Link
         href={href}
+        prefetch={true}
         className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-400 transition hover:bg-white/[0.04] hover:text-white"
       >
         {label}
         <ChevronDown className="h-3.5 w-3.5 transition group-hover:rotate-180" />
       </Link>
-      <div className="pointer-events-none absolute left-1/2 top-full z-50 mt-4 w-[360px] -translate-x-1/2 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+      <div className="pointer-events-none absolute left-1/2 top-full z-50 mt-4 w-[360px] -translate-x-1/2 opacity-0 transition duration-100 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
         <div className="rounded-3xl border border-white/10 bg-[#050507]/95 p-3 shadow-2xl shadow-violet-950/40 backdrop-blur-2xl">
           <div className="grid gap-1">
             {items.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
+                prefetch={true}
+                style={{ touchAction: 'manipulation' }}
                 className="group/item flex gap-3 rounded-2xl border border-transparent p-3 transition hover:border-violet-400/20 hover:bg-white/[0.04]"
               >
                 <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
@@ -158,6 +161,8 @@ export function SiteHeader() {
 
         <Link
           href="/register"
+          prefetch={true}
+          style={{ touchAction: 'manipulation' }}
           className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-200 transition hover:border-emerald-300/40 hover:bg-emerald-300/10 hover:text-white"
         >
           Request briefing

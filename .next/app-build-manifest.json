@@ -10,6 +10,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
+    "/solutions/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/solutions/page.js"
+    ],
+    "/web3/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/web3/page.js"
+    ],
     "/agents/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

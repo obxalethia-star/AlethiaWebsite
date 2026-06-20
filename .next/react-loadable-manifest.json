@@ -1,4 +1,16 @@
 {
+  "components\\LoadingScreen.tsx -> animejs": {
+    "id": "components\\LoadingScreen.tsx -> animejs",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_animejs_dist_modules_index_js.js"
+    ]
+  },
+  "components\\SlotStats.tsx -> animejs": {
+    "id": "components\\SlotStats.tsx -> animejs",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_animejs_dist_modules_index_js.js"
+    ]
+  },
   "node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js": {
     "id": "node_modules\\@react-three\\drei\\core\\VideoTexture.js -> hls.js",
     "files": []
