@@ -69,7 +69,7 @@ const heroStats = [
   { label: 'Stage', value: 'Pre-seed MVP' },
   { label: 'Testnet demo target', value: '$12.4B simulated flow' },
   { label: 'Institution targets', value: '150 mapped prospects' },
-  { label: 'License target', value: 'FSP + CASP 2027' }
+  { label: 'License target', value: 'FSP + CASP 2030' }
 ];
 
 const chamberLayers = [
@@ -264,13 +264,13 @@ function App() {
                 <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Capital intelligence</p>
                 <div className="mt-5 grid gap-4 md:grid-cols-2">
                   <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/55 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Runway model</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Capital Utilisation</p>
                     <div className="mt-3 h-36 overflow-hidden">
                       <CapitalDeploymentChart />
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/55 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Sector blueprints</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Sector Allocation</p>
                     <div className="mt-3 h-36 overflow-hidden">
                       <SectorAllocationChart />
                     </div>

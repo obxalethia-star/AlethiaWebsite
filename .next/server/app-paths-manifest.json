@@ -1,7 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/web3/page": "app/web3/page.js",
   "/agents/page": "app/agents/page.js",
-  "/register/page": "app/register/page.js",
-  "/erp/page": "app/erp/page.js"
+  "/page": "app/page.js"
 }
