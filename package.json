@@ -1,35 +1,36 @@
 {
-  "name": "copy-of-obxalethia-core",
+  "name": "obxalethia-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "lint": "tsc --noEmit",
     "hardhat": "hardhat",
     "test": "node scripts/qa.js"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.0.0",
-    "@studio-freight/lenis": "^1.0.42",
-    "animejs": "^4.4.1",
-    "gsap": "^3.12.5",
     "lucide-react": "^0.555.0",
+    "motion": "^12.4.0",
     "next": "^15.2.0",
+    "pg": "^8.13.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "recharts": "^3.5.1",
-    "three": "^0.165.0"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.14.0",
+    "@types/pg": "^8.11.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "hardhat": "^2.22.0",
+    "postcss": "^8.5.1",
     "solc": "^0.8.24",
+    "tailwindcss": "^4.0.0",
     "typescript": "~5.8.2"
   }
 }
