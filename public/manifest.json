@@ -1,11 +1,11 @@
 {
-  "name": "OBXAlethia",
-  "short_name": "OBXAlethia",
-  "description": "OBXAlethia Web3 ERP and contract chamber.",
+  "name": "OBX Alethia",
+  "short_name": "Alethia",
+  "description": "Smart contract chamber for institutional deal execution.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#020617",
+  "background_color": "#151a1c",
+  "theme_color": "#151a1c",
   "icons": [
     {
       "src": "/icons/OBXAlethia-Favicon.png",

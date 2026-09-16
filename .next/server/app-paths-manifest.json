@@ -1,6 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/web3/page": "app/web3/page.js",
-  "/solutions/page": "app/solutions/page.js",
-  "/agents/page": "app/agents/page.js"
-}

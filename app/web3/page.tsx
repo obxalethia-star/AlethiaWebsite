@@ -1,141 +1,142 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowRight, Boxes, CheckCircle2, Landmark, Lock, Network, ShieldCheck } from 'lucide-react';
-import { SiteHeader } from '../../components/SiteHeader';
+import { CheckCircle2 } from 'lucide-react';
+import { Container, Eyebrow, PageHero, SectionLabel, BriefingCta } from '@/components/ui';
+import { HardwareWalletArt } from '@/components/illustrations/HardwareWallet';
+import { CardVisual } from '@/components/illustrations/CardVisual';
+import { alethiaCoin, guardrails, multiAssetSupport, pillars, settlementWorkflows } from '@/lib/content/web3';
 
 export const metadata: Metadata = {
-  title: 'Web3 Stack | OBXAlethia',
+  title: 'Web3',
   description:
-    'OBXAlethia Web3 stack for smart contract chambers, tokenization, custody, governance, escrow, settlement routes, and event indexing.'
+    'Why the chamber runs on-chain at all: the smart contract runtime, tokenization engine, custody and governance, settlement rails, Alethia Coin, and hardware-key custody concepts.'
 };
 
-const pillars = [
-  {
-    id: 'smart-contract-chamber',
-    title: 'Smart Contract Chamber',
-    description:
-      'The core MVP runtime for deal containers, execution states, permissions, signatures, escrow events, and evidence records.',
-    icon: <Boxes className="h-5 w-5 text-violet-300" />
-  },
-  {
-    id: 'tokenization-engine',
-    title: 'Tokenization Engine',
-    description:
-      'Asset record concepts for ownership, lifecycle events, fractionalization models, and future Alethia Coin utility flows.',
-    icon: <Landmark className="h-5 w-5 text-emerald-300" />
-  },
-  {
-    id: 'custody-governance',
-    title: 'Custody & Governance',
-    description:
-      'Multi-sig planning, hardware wallet links, delegated signing policies, board resolutions, and human approval gates.',
-    icon: <ShieldCheck className="h-5 w-5 text-violet-300" />
-  },
-  {
-    id: 'settlement-rails',
-    title: 'Settlement Rails',
-    description:
-      'Milestone escrow, programmable release criteria, cross-chain route planning, and event indexing for audit-ready flows.',
-    icon: <Network className="h-5 w-5 text-emerald-300" />
-  }
-];
-
-const workflows = [
-  'Tokenized infrastructure and real-world asset programs',
-  'Programmable escrow for conditional settlement',
-  'Royalty and revenue-share distribution',
-  'Institutional treasury approvals and reporting',
-  'Chain-attested logs for governed decisions',
-  'ERP data feeds for finance, legal, risk, and investors'
-];
-
-const principles = [
-  'Use Web3 where it improves execution, auditability, and settlement clarity.',
-  'Keep corporate users shielded from unnecessary crypto volatility.',
-  'Preserve human authority for approvals, signatures, and governance.',
-  'Build toward regulated deployment after sandbox and testnet validation.'
-];
+const STATUS_STYLE: Record<string, string> = {
+  'MVP live': 'text-match border-match',
+  'Building next': 'text-accent border-accent',
+  Roadmap: 'text-ink-faint border-line'
+};
 
 export default function Web3Page() {
   return (
-    <main className="min-h-screen bg-black text-zinc-100">
-      <SiteHeader />
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <Link href="/" className="text-xs uppercase tracking-[0.24em] text-zinc-500 transition hover:text-white">
-          Back to overview
-        </Link>
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-emerald-300">Web3 infrastructure</p>
-            <h1 className="mt-4 max-w-4xl text-5xl font-semibold leading-tight text-white md:text-6xl">
-              On-chain rails for institutional contracts, custody, and settlement.
-            </h1>
-            <p className="mt-6 max-w-3xl text-base leading-8 text-zinc-300">
-              OBXAlethia is not adding crypto decoration to ERP. The Web3 layer exists to make capital movement,
-              contract state, approvals, and compliance evidence programmable, traceable, and ready for regulated
-              deployment.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/solutions"
-                className="group inline-flex items-center gap-2 rounded-full bg-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 transition hover:bg-violet-400"
-              >
-                See solution layer <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-              </Link>
-              <Link
-                href="/agents"
-                className="rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-zinc-200 transition hover:border-emerald-300/40 hover:bg-emerald-300/10"
-              >
-                Explore agents
-              </Link>
+    <main>
+      <PageHero
+        eyebrow="Why on-chain at all"
+        title="On-chain rails for contracts, custody, and settlement — not crypto decoration."
+        dek="Web3 exists here to make capital movement, contract state, approvals, and compliance evidence programmable, traceable, and ready for regulated deployment. Nothing more."
+      >
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 max-w-2xl">
+          {guardrails.map((g) => (
+            <div key={g} className="flex items-start gap-2 border border-line-soft p-3 text-sm text-ink-muted">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-match" />
+              {g}
             </div>
-          </div>
-          <div className="rounded-3xl border border-white/10 bg-zinc-950/70 p-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">MVP guardrails</p>
-            <div className="mt-5 grid gap-3 text-sm text-zinc-300">
-              {principles.map((principle) => (
-                <div key={principle} className="flex items-start gap-2 rounded-2xl border border-white/10 bg-black/55 p-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
-                  {principle}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <section className="mt-14 grid gap-5 md:grid-cols-2">
-          {pillars.map((pillar) => (
-            <article
-              key={pillar.title}
-              id={pillar.id}
-              className="scroll-mt-28 rounded-3xl border border-white/10 bg-zinc-950/70 p-6"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
-                {pillar.icon}
-              </span>
-              <h2 className="mt-5 text-2xl font-semibold text-white">{pillar.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-zinc-400">{pillar.description}</p>
-            </article>
           ))}
-        </section>
+        </div>
+      </PageHero>
 
-        <section className="mt-14 rounded-3xl border border-white/10 bg-black/70 p-6 md:p-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-zinc-500">Infrastructure outcomes</p>
-              <h2 className="mt-3 text-3xl font-semibold text-white">Built for auditability, not novelty alone.</h2>
-            </div>
-            <Lock className="h-6 w-6 text-violet-300" />
+      <section className="border-b border-line py-14 md:py-20">
+        <Container>
+          <div className="grid gap-5 md:grid-cols-2">
+            {pillars.map((pillar) => (
+              <article key={pillar.slug} id={pillar.slug} className="scroll-mt-24 border border-line p-6">
+                <span
+                  className={`inline-block border px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] ${STATUS_STYLE[pillar.status]}`}
+                >
+                  {pillar.status}
+                </span>
+                <h2 className="mt-4 font-display text-xl font-semibold text-ink">{pillar.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-ink-muted">{pillar.description}</p>
+              </article>
+            ))}
           </div>
-          <div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {workflows.map((workflow) => (
-              <div key={workflow} className="rounded-2xl border border-white/10 bg-zinc-950/70 p-4 text-sm leading-6 text-zinc-300">
+        </Container>
+      </section>
+
+      <section id="alethia-coin" className="scroll-mt-24 border-b border-line py-14 md:py-20">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <span className="inline-block border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">
+                {alethiaCoin.status}
+              </span>
+              <h2 className="mt-4 font-display text-2xl font-semibold text-ink md:text-3xl">Alethia Coin</h2>
+              <p className="mt-4 max-w-xl text-sm leading-7 text-ink-muted">{alethiaCoin.description}</p>
+              <div className="mt-5 flex flex-col gap-2">
+                {alethiaCoin.principles.map((p) => (
+                  <div key={p} className="flex items-start gap-2 text-sm text-ink-muted">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-match" />
+                    {p}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="border border-line bg-surface p-6">
+              <SectionLabel>Multi-asset support</SectionLabel>
+              <div className="mt-4 flex flex-col gap-2">
+                {multiAssetSupport.map((item) => (
+                  <div key={item} className="border-b border-line-soft py-2 text-sm text-ink-muted last:border-0">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b border-line py-14 md:py-20">
+        <Container>
+          <Eyebrow>Custody concepts</Eyebrow>
+          <h2 className="mt-3 max-w-2xl font-display text-2xl font-semibold text-ink md:text-3xl">
+            Hardware-key signing and a settlement card — concept stage.
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-6 text-ink-muted">
+            Two custody concepts on the roadmap: an offline signing key so approval authority never leaves a
+            physical device, and a settlement card for institutional users who need multi-asset balances to behave
+            like a normal card.
+          </p>
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            <div className="border border-line p-6">
+              <HardwareWalletArt />
+              <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">Offline signing key</p>
+              <p className="mt-2 text-sm leading-6 text-ink-muted">
+                Multi-sig approvals and delegated signing policies anchored to a device that holds the key
+                offline — concept stage, built alongside custody &amp; governance.
+              </p>
+            </div>
+            <div className="border border-line p-6">
+              <CardVisual />
+              <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">Settlement card</p>
+              <p className="mt-2 text-sm leading-6 text-ink-muted">
+                A multi-asset settlement card concept for institutional spend — rand-referenced balances first,
+                additional rails once settlement infrastructure is proven.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-b border-line py-14 md:py-20">
+        <Container>
+          <SectionLabel>Infrastructure outcomes</SectionLabel>
+          <h2 className="mt-3 max-w-2xl font-display text-2xl font-semibold text-ink md:text-3xl">
+            Built for auditability, not novelty alone.
+          </h2>
+          <div className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {settlementWorkflows.map((workflow) => (
+              <div key={workflow} className="border border-line p-4 text-sm leading-6 text-ink-muted">
                 {workflow}
               </div>
             ))}
           </div>
-        </section>
+        </Container>
       </section>
+
+      <BriefingCta
+        heading="Ask about the custody and settlement model."
+        detail="We'll walk through how approvals, multi-sig, and settlement rails fit your existing treasury controls."
+      />
     </main>
   );
 }

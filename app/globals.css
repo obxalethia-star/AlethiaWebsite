@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  /* surfaces */
+  --color-bg: oklch(0.16 0.006 260);
+  --color-surface: oklch(0.205 0.007 260);
+  --color-surface-raised: oklch(0.245 0.009 260);
+  --color-line: oklch(0.3 0.011 260);
+  --color-line-soft: oklch(0.25 0.009 260);
+
+  /* ink */
+  --color-ink: oklch(0.96 0.004 260);
+  --color-ink-muted: oklch(0.67 0.02 260);
+  --color-ink-faint: oklch(0.47 0.016 260);
+
+  /* accent: terminal amber */
+  --color-accent: oklch(0.74 0.13 70);
+  --color-accent-strong: oklch(0.8 0.15 72);
+  --color-accent-soft: oklch(0.28 0.05 70);
+  --color-on-accent: oklch(0.18 0.02 70);
+
+  /* semantic: match / break */
+  --color-match: oklch(0.66 0.12 155);
+  --color-match-soft: oklch(0.26 0.045 155);
+  --color-break: oklch(0.62 0.15 30);
+  --color-break-soft: oklch(0.27 0.055 30);
+
+  /* type */
+  --font-display: "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --container-page: 1180px;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-faint);
+}
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
