@@ -1,36 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  /* surfaces */
-  --color-bg: oklch(0.16 0.006 260);
-  --color-surface: oklch(0.205 0.007 260);
-  --color-surface-raised: oklch(0.245 0.009 260);
-  --color-line: oklch(0.3 0.011 260);
-  --color-line-soft: oklch(0.25 0.009 260);
+  /* surfaces — ai.work monochrome */
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-raised: #1c1c1c;
+  --color-line: #2a2a2a;
+  --color-line-soft: #1f1f1f;
 
   /* ink */
-  --color-ink: oklch(0.96 0.004 260);
-  --color-ink-muted: oklch(0.67 0.02 260);
-  --color-ink-faint: oklch(0.47 0.016 260);
+  --color-ink: #ffffff;
+  --color-ink-muted: #a3a3a3;
+  --color-ink-faint: #6b6b6b;
 
-  /* accent: terminal amber */
-  --color-accent: oklch(0.74 0.13 70);
-  --color-accent-strong: oklch(0.8 0.15 72);
-  --color-accent-soft: oklch(0.28 0.05 70);
-  --color-on-accent: oklch(0.18 0.02 70);
+  /* accent is white: emphasis text, borders, and the solid pill CTA */
+  --color-accent: #ffffff;
+  --color-accent-strong: #ffffff;
+  --color-accent-soft: #1f1f1f;
+  --color-on-accent: #0a0a0a;
 
-  /* semantic: match / break */
-  --color-match: oklch(0.66 0.12 155);
-  --color-match-soft: oklch(0.26 0.045 155);
-  --color-break: oklch(0.62 0.15 30);
-  --color-break-soft: oklch(0.27 0.055 30);
+  /* nav CTA — the one piece of brand purple, lights up on hover */
+  --color-cta: #332a42;
+  --color-cta-hover: #4f3f66;
+  --color-cta-line: #453a58;
+  --color-cta-line-hover: #5b4a73;
+  --color-cta-ink: #f1edf7;
+
+  /* semantic: live / match / break */
+  --color-live: #4ade80;
+  --color-match: #4ade80;
+  --color-match-soft: #122019;
+  --color-break: #f87171;
+  --color-break-soft: #241414;
 
   /* type */
-  --font-display: "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  --container-page: 1180px;
+  --container-page: 1120px;
 }
 
 html {
@@ -45,7 +53,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-accent-soft);
+  background: var(--color-surface-raised);
   color: var(--color-ink);
 }
 

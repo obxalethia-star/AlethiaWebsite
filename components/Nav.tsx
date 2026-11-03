@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const NAV_ITEMS = [
   { label: 'Home', href: '/' },
@@ -14,6 +14,9 @@ const NAV_ITEMS = [
   { label: 'Blog', href: '/blog' },
   { label: 'About', href: '/about' }
 ];
+
+const CTA_CLASS =
+  'bg-cta text-cta-ink border border-cta-line transition-[background-color,border-color,box-shadow] duration-250 hover:bg-cta-hover hover:border-cta-line-hover hover:shadow-[0_0_0_1px_var(--color-cta-line-hover),0_10px_26px_-10px_rgba(139,92,246,0.55)]';
 
 export function Nav() {
   const pathname = usePathname();
@@ -39,21 +42,24 @@ export function Nav() {
   const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/90 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-(--container-page) items-center justify-between gap-4 px-5 py-4 md:px-8">
+    <header
+      className="sticky z-50 mx-auto w-full max-w-(--container-page) px-5 pt-4 md:px-6"
+      style={{ top: 'calc(env(safe-area-inset-top, 0px) + 1rem)' }}
+    >
+      <div className="flex items-center justify-between gap-4 rounded-full border border-line bg-surface/90 py-2.5 pl-5 pr-2.5 backdrop-blur-xl">
         <Link href="/" className="flex items-center gap-2.5">
-          <img src="/icons/OBXAlethia-Favicon.png" alt="" className="h-8 w-8 rounded-sm" />
-          <span className="font-display text-[15px] font-bold tracking-tight text-ink">ALETHIA</span>
+          <img src="/icons/OBXAlethia-Favicon.png" alt="" className="h-6.5 w-6.5" />
+          <span className="font-display text-base font-bold tracking-tight text-ink">Alethia</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? 'page' : undefined}
-              className={`rounded-sm px-3 py-2 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
-                isActive(item.href) ? 'text-accent' : 'text-ink-muted hover:text-ink'
+              className={`rounded-full px-3.5 py-2.5 text-[13px] font-medium transition-colors ${
+                isActive(item.href) ? 'bg-surface-raised text-ink' : 'text-ink-muted hover:bg-surface-raised hover:text-ink'
               }`}
             >
               {item.label}
@@ -64,9 +70,9 @@ export function Nav() {
         <div className="flex items-center gap-2">
           <Link
             href="/about#briefing"
-            className="hidden items-center gap-2 border border-accent px-4 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-accent transition-colors hover:bg-accent-soft md:inline-flex"
+            className={`hidden rounded-full px-5 py-2.5 text-[13px] font-semibold md:inline-flex ${CTA_CLASS}`}
           >
-            Request briefing <ArrowRight className="h-3.5 w-3.5" />
+            Request briefing
           </Link>
           <button
             type="button"
@@ -74,7 +80,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center border border-line text-ink md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:bg-surface-raised lg:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -87,16 +93,16 @@ export function Nav() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className="fixed inset-x-0 top-[65px] bottom-0 z-50 overflow-y-auto border-t border-line bg-bg md:hidden"
+          className="mt-3 overflow-hidden rounded-3xl border border-line bg-surface p-2 backdrop-blur-xl lg:hidden"
         >
-          <nav aria-label="Mobile" className="flex flex-col gap-1 px-5 py-6">
+          <nav aria-label="Mobile" className="flex flex-col">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(item.href) ? 'page' : undefined}
-                className={`border-b border-line-soft py-4 font-display text-xl font-medium ${
-                  isActive(item.href) ? 'text-accent' : 'text-ink'
+                className={`rounded-2xl px-4 py-3.5 font-display text-lg font-semibold transition-colors ${
+                  isActive(item.href) ? 'bg-surface-raised text-ink' : 'text-ink-muted hover:bg-surface-raised hover:text-ink'
                 }`}
               >
                 {item.label}
@@ -104,9 +110,9 @@ export function Nav() {
             ))}
             <Link
               href="/about#briefing"
-              className="mt-6 inline-flex items-center justify-center gap-2 bg-accent px-5 py-3.5 font-mono text-[12px] font-medium uppercase tracking-[0.08em] text-on-accent"
+              className={`mt-2 inline-flex items-center justify-center rounded-full px-5 py-3.5 text-sm font-semibold ${CTA_CLASS}`}
             >
-              Request a briefing <ArrowRight className="h-4 w-4" />
+              Request briefing
             </Link>
           </nav>
         </div>
